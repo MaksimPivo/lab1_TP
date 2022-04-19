@@ -26,13 +26,14 @@ public class Task2 {
         for (Gruppyi g : q) {
             if (year - Integer.parseInt(g.getDataFormir().toString().split("-")[0]) >= 9) {
                 g.setStatus("rasformirovana");
+                g.setStatusDate(new Date());
                 for (Studentyi s : q2) {
                     if (s.getGruppyi().getShifr().equals(g.getShifr())) {
                         s.setStatus("vyipusknik");
+                        s.setStatusDate(new Date());
                     }
                 }
             }
-            g.setStatusDate(new Date());
             session.update(g);
         }
         t1.commit();
