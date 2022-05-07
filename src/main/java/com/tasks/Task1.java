@@ -16,20 +16,20 @@ public class Task1 {
     }
 
     public void slectStudentyi() {
-        Transaction t1 = session.beginTransaction();
+        Transaction t = session.beginTransaction();
         List<Studentyi> q = session.createQuery("from Studentyi s").list();
         for (Studentyi u : q) {
             System.out.print(u.getFamiliya() + " " + u.getImya() + " " + u.getOtchestvo() + " - " + u.getGruppyi().getNazvanie() + ";\n");
             u.setStatusDate(new Date());
             session.saveOrUpdate(u);
         }
-        t1.commit();
+        t.commit();
     }
 
     public void amountStudentyiInGruppyi() {
-        Transaction t2 = session.beginTransaction();
+        Transaction t = session.beginTransaction();
         List<Studentyi> st = session.createQuery("from Studentyi s").list();
         st.stream().collect(Collectors.groupingBy(Studentyi::getGruppyi)).forEach((a, b) -> System.out.println(a.getNazvanie() + " - " + b.stream().count()));
-        t2.commit();
+        t.commit();
     }
 }

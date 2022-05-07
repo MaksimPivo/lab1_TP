@@ -1,21 +1,22 @@
 package com.runner;
 
+import com.Utis.Gruppyi;
 import com.Utis.NewHibernateUtil;
 import com.Utis.Spetsialnosti;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.Date;
+import java.util.List;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws ParseException {
         Session s = NewHibernateUtil.getSessionFactory().openSession();
 
-        Date date = new Date();
-//        date.setYear(2013); //неправилный парсинг даты(3913)
-        date.setYear(113);
-        date.setMonth(3);
-        date.setDate(23);
+        Date date = new SimpleDateFormat( "yyyy.MM.dd" ).parse( "2013.04.03" );
         Spetsialnosti spetsialnosti = new Spetsialnosti();
         Transaction t = s.beginTransaction();
         spetsialnosti.setKodSpets(2);
@@ -24,7 +25,6 @@ public class Main {
         spetsialnosti.setStatusDate(new Date());
         t.commit();
         s.save(spetsialnosti);
-
         s.close();
     }
 
